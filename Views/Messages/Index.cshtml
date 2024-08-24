@@ -1,0 +1,96 @@
+﻿@model IEnumerable<Pharmacy.Models.ContactForm>
+
+@{
+    ViewData["Title"] = "User Messages";
+    Layout = "~/Views/Dashboard/_Layout.cshtml";
+
+    // List of image URLs
+    var imageUrls = new List<string>
+    {
+        "https://cdn.discordapp.com/attachments/1216122039191208016/1274703366642991187/145974.png?ex=66cb2085&is=66c9cf05&hm=339c55f64db5693afb97a83c2c31df1f2ac22879b40fb06720f7609c8a7e302c&",
+        "https://cdn.discordapp.com/attachments/1216122039191208016/1274703585539657749/168725.png?ex=66cb20b9&is=66c9cf39&hm=c7a6bdb97c59c6d2eaead000a5c93f45be846e0fdb57de21963a516be657c53e&",
+        "https://cdn.discordapp.com/attachments/1216122039191208016/1274703694520127619/168726.png?ex=66cb20d3&is=66c9cf53&hm=1e47caecfde6b9b9b8c24f2c1da8ee19fcfb12ed667bb136a484a139e7e046b2&"
+    };
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        // Randomly select an image URL
+        var randomImageUrl = imageUrls[new Random().Next(imageUrls.Count)];
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100" data-bs-toggle="modal" data-bs-target="#messageModal-@item.Id" style="cursor: pointer;">
+                <div class="d-flex justify-content-center">
+                    <img class="card-img-top img-fluid" src="@randomImageUrl" alt="User Image" style="max-width: 100%; height: auto;">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">@item.Name</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">@item.Email</h6>
+                    <p class="card-text">@((item.Message.Length > 100) ? item.Message.Substring(0, 100) + "..." : item.Message)</p>
+                    <p class="card-text"><small class="text-muted">Submitted on @item.SubmittedAt.ToString("MM/dd/yyyy HH:mm:ss")</small></p>
+                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-id="@item.Id">Delete</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="messageModal-@item.Id" tabindex="-1" aria-labelledby="messageModalLabel-@item.Id" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="messageModalLabel-@item.Id">Message from @item.Name</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="d-flex justify-content-center mb-3">
+                            <img class="img-fluid" src="@randomImageUrl" alt="User Image" style="max-width: 100%; height: auto;">
+                        </div>
+                        <h6>Email: @item.Email</h6>
+                        <p>@item.Message</p>
+                        <p><small class="text-muted">Submitted on @item.SubmittedAt.ToString("MM/dd/yyyy HH:mm:ss")</small></p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="mailto:@item.Email?subject=Response to your message&body=Dear @item.Name," class="btn btn-primary">Mail User</a>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<!-- Confirmation Modal -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Deletion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this message?
+            </div>
+            <div class="modal-footer">
+                <form id="deleteForm" method="post" asp-action="Delete">
+                    <input type="hidden" id="deleteId" name="id" />
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var deleteModal = document.getElementById('confirmDeleteModal');
+    deleteModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        var id = button.getAttribute('data-id');
+        var form = document.getElementById('deleteForm');
+        var input = document.getElementById('deleteId');
+        input.value = id;
+    });
+</script>

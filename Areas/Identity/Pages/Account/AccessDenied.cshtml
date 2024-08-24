@@ -1,0 +1,50 @@
+﻿@page
+@model AccessDeniedModel
+@{
+    ViewData["Title"] = "Access denied";
+
+    Layout = "~/Views/IdentityLayout/_Layout.cshtml";
+}
+
+
+    <style>
+        .access-denied-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 20px;
+        }
+
+        .access-denied-header {
+            margin-bottom: 20px;
+        }
+
+        .access-denied-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .access-denied-message {
+            font-size: 1.25rem;
+            margin-bottom: 20px;
+        }
+
+        .btn-home {
+            margin-top: 20px;
+        }
+    </style>
+
+
+<div class="access-denied-container">
+    <div class="access-denied-header">
+        <h1 class="access-denied-title">@ViewData["Title"]</h1>
+        <p class="access-denied-message">You do not have access to this resource.</p>
+    </div>
+    <a href="/" class="btn btn-primary btn-home">Go to Home</a>
+</div>

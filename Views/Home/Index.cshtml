@@ -1,0 +1,116 @@
+﻿@model IEnumerable<Pharmacy.Models.Products>
+
+@{
+    ViewData["Title"] = "Home Page";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .card-hover {
+        transition: box-shadow 0.3s ease-in-out;
+    }
+
+        .card-hover:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+    .card-img-top {
+        object-fit: cover;
+        height: 200px; /* Adjust based on your design needs */
+    }
+</style>
+
+<div class="site-blocks-cover">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 mx-auto order-lg-2 align-self-center">
+                <div class="site-block-cover-content text-center">
+                    <h2 class="sub-title">Effective Medicine, New Medicine Everyday</h2>
+                    <h1>Welcome To Pharma</h1>
+                    <p>
+                        <a asp-controller="Store" asp-action="" class="btn btn-primary px-5 py-3">Shop Now</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="site-section">
+    <div class="container">
+        <div class="row align-items-stretch section-overlap">
+            <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
+                <div class="banner-wrap bg-primary h-100">
+                    <a href="#" class="d-block h-100 text-white text-decoration-none">
+                        <h5>Free <br> Shipping</h5>
+                        <p>
+                            Amet sit amet dolor
+                            <strong>Lorem, ipsum dolor sit amet consectetur adipisicing.</strong>
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
+                <div class="banner-wrap h-100">
+                    <a href="#" class="d-block h-100 text-dark text-decoration-none">
+                        <h5>Season <br> Sale 50% Off</h5>
+                        <p>
+                            Amet sit amet dolor
+                            <strong>Lorem, ipsum dolor sit amet consectetur adipisicing.</strong>
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
+                <div class="banner-wrap bg-warning h-100">
+                    <a href="#" class="d-block h-100 text-dark text-decoration-none">
+                        <h5>Buy <br> A Gift Card</h5>
+                        <p>
+                            Amet sit amet dolor
+                            <strong>Lorem, ipsum dolor sit amet consectetur adipisicing.</strong>
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="site-section">
+    <div class="container">
+        <div class="row">
+            <div class="title-section text-center col-12">
+                <h2 class="text-uppercase">Popular Products</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            @foreach (var item in Model.Take(3))
+            {
+                <div class="col-sm-6 col-lg-4 mb-4">
+                    <a href="@Url.Action("ShopSingle", new { id = item.Id })" class="text-dark text-decoration-none">
+                        <div class="card border-light shadow-sm h-100 bg-light card-hover">
+                            @if (!string.IsNullOrEmpty(item.ImagePath))
+
+                            {
+                                <img src="@item.ImagePath" class="card-img-top" alt="Product Image" style="max-width: 100%; height: auto;" />
+                            }
+                            <div class="card-body text-center p-4">
+                                <h5 class="card-title">@item.ProdName</h5>
+                                <p class="card-text">Price: $@item.Price</p>
+                                <p class="card-text">Stock: @item.Stock</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-12 text-center">
+                <a asp-controller="Store" asp-action="List" class="btn btn-primary px-4 py-3">View All Products</a>
+            </div>
+        </div>
+    </div>
+</div>

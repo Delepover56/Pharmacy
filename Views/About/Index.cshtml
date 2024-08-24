@@ -1,0 +1,84 @@
+﻿@{
+    ViewData["Title"] = "About Us";
+}
+
+<style>
+    .about-us-background {
+        background-image: url("../../wwwroot/HomePageAsset/images/hero_1.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        padding: 80px 0; /* Increased padding for more space */
+        color: #fff; /* White text color for contrast */
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .about-us-background::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4); /* Slightly lighter overlay for better contrast */
+            z-index: 1;
+        }
+
+        .about-us-background .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .about-us-background h1 {
+            font-size: 3.5rem; /* Larger font size for emphasis */
+            font-weight: 700; /* Bold heading */
+            margin-bottom: 20px;
+            text-transform: uppercase; /* Uppercase text for impact */
+        }
+
+        .about-us-background p {
+            font-size: 1.2rem; /* Slightly larger font size for readability */
+            line-height: 1.8;
+            max-width: 800px; /* Ensure text block is not too wide */
+            margin: 0 auto;
+            padding: 0 15px; /* Add some padding for responsiveness */
+        }
+
+        /* Add a subtle shadow effect to the text */
+        .about-us-background h1,
+        .about-us-background p {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Decorative element to enhance visual appeal */
+        .about-us-background::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: #f39c12; /* Bright accent color */
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            z-index: 3;
+        }
+</style>
+
+<div class="about-us-background">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 mx-auto align-self-center">
+                <div>
+                    <h1 class="Title">About Us</h1>
+                    <p class="OurInfo">
+                        The pharmaceuticals sector is a highly R&D intensive industry. The Pharma is a Pharmaceuticals company which deals with products like Capsule/Encapsulation, Tablet, Liquid Filling, Blending, Process Equipment, Used Equipment. This organization now wants the entire process to be explained in as a web application so as to enhance the advertisement of the company and to increase its profit. For this, the company has approached to make the website and also provided the list of the functionalities expected.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

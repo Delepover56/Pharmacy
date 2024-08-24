@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Pharmacy.Models.CareerForm>
+
+@{
+    ViewData["Title"] = "Candidates";
+    Layout = "~/Views/Dashboard/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="container my-4">
+        <div class="card-header">
+            <h3 class="text-center mb-4">Candidates List</h3>
+        </div>
+        <br/>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover datatable table-bordered shadow-sm">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col" style="font-size: clamp(14px, 2vw, 18px);">Full Name</th>
+                            <th scope="col" style="font-size: clamp(14px, 2vw, 18px);">Email</th>
+                            <th scope="col" style="font-size: clamp(14px, 2vw, 18px);">Phone Number</th>
+                            <th scope="col" style="font-size: clamp(14px, 2vw, 18px);">Education</th>
+                            <th scope="col" style="font-size: clamp(14px, 2vw, 18px);">Application Date</th>
+                            <th scope="col" style="font-size: clamp(14px, 2vw, 18px);">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.FullName)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                                <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Education)</td>
+                                <td>@Html.DisplayFor(modelItem => item.DateOfApplication)</td>
+                                <td>
+                                    <a asp-action="Approve" asp-route-id="@item.Id" class="btn btn-primary">Approve</a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+

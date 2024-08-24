@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Pharmacy.Models.UserRolesViewModel>
+
+@{
+    ViewData["Title"] = "List";
+    Layout = "~/Views/Dashboard/_Layout.cshtml";
+}
+
+<h1>Users</h1>
+
+<table class="table table-bordered datatable table-hover">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Roles</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.UserName</td>
+                <td>@user.Email</td>
+                <td>@string.Join(", ", user.Roles)</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@user.UserId">Edit</a> |
+
+                    <form asp-action="Delete" asp-route-id="@user.UserId" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                        <button type="submit" class="btn btn-link">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

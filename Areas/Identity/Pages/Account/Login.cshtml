@@ -1,0 +1,147 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+
+    Layout = "~/Views/IdentityLayout/_Layout.cshtml";
+}
+
+<style>
+    /* Container for centering the form */
+    .container {
+        max-width: 100%;
+        padding: 2rem;
+    }
+
+    /* Center the row vertically and horizontally */
+    .row {
+        height: 100vh;
+    }
+
+    .card {
+        border-radius: 1rem; /* Rounded corners for the card */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for the card */
+        background-color: #e9ecef; /* Slightly darker than #f8f9fa */
+        transition: box-shadow 0.3s ease-in-out; /* Smooth transition for shadow effect */
+    }
+
+        .card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+        }
+
+    .card-body {
+        padding: 2rem;
+    }
+
+    .card-title {
+        font-size: 1.5rem; /* Larger font size for the title */
+        font-weight: 600; /* Heavier font weight for the title */
+        color: #343a40; /* Dark color for the title */
+    }
+
+    .form-floating {
+        margin-bottom: 1.5rem; /* Spacing between form controls */
+    }
+
+    .form-control {
+        border-radius: 0.5rem; /* Rounded corners for input fields */
+        box-shadow: none; /* Remove default shadow */
+        border: 1px solid #ced4da; /* Border color */
+        padding: 1rem; /* Padding inside input fields */
+    }
+
+        .form-control:focus {
+            border-color: #007bff; /* Border color on focus */
+            box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25); /* Shadow on focus */
+        }
+
+    .form-label {
+        font-weight: 500; /* Slightly heavier font weight */
+        color: #495057; /* Darker color for labels */
+    }
+
+    .form-check-input {
+        margin-top: 0.25rem; /* Space between checkbox and label */
+    }
+
+    .form-check-label {
+        margin-left: 0.5rem; /* Space between checkbox and label */
+    }
+
+    .btn-primary {
+        background-color: #007bff; /* Primary button color */
+        border: none; /* Remove border */
+        border-radius: 0.5rem; /* Rounded corners for buttons */
+        padding: 0.75rem 1.5rem; /* Padding for buttons */
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3; /* Darker color on hover */
+            opacity: 0.9; /* Slightly transparent on hover */
+        }
+
+    .text-center a {
+        color: #007bff; /* Primary color for links */
+        text-decoration: none; /* Remove underline */
+    }
+
+        .text-center a:hover {
+            text-decoration: underline; /* Underline on hover */
+        }
+</style>
+
+<div class="container">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card bg-light shadow-sm">
+                <div class="card-body">
+                    <h3 class="card-title text-center mb-4">Log in</h3>
+
+                    <form id="account" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3" role="alert"></div>
+
+                        <div class="form-floating mb-3">
+                            <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                            <label asp-for="Input.Email" class="form-label">Email</label>
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" />
+                            <label asp-for="Input.Password" class="form-label">Password</label>
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-check mb-3">
+                            <input asp-for="Input.RememberMe" class="form-check-input" id="rememberMe" />
+                            <label class="form-check-label" for="rememberMe">
+                                @Html.DisplayNameFor(m => m.Input.RememberMe)
+                            </label>
+                        </div>
+
+                        <div class="d-grid mb-3">
+                            <button id="login-submit" type="submit" class="btn btn-primary btn-lg">Log in</button>
+                        </div>
+
+                        <div class="text-center">
+                            <p>
+                                <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                            </p>
+                            <p>
+                                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                            </p>
+                            <p>
+                                <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

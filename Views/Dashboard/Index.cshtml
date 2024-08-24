@@ -1,0 +1,118 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+
+    Layout = "~/Views/Dashboard/_Layout.cshtml";
+}
+
+<div class="pagetitle">
+    <h1>Dashboard</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="Dashboard" asp-action="Index">Home</a></li>
+            <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+    </nav>
+</div><!-- End Page Title -->
+
+<section class="section dashboard">
+    <div class="row">
+
+        <!-- Total Admins Card -->
+        <div class="col-lg-3 col-md-6">
+            <div class="card info-card">
+                <div class="card-body">
+                    <h5 class="card-title">Total Admins</h5>
+                    <div class="d-flex align-items-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="bi bi-person"></i>
+                        </div>
+                        <div class="ps-3">
+                            <h6>@ViewData["TotalAdmins"]</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- End Total Admins Card -->
+        <!-- Total Users Card -->
+        <div class="col-lg-3 col-md-6">
+            <div class="card info-card">
+                <div class="card-body">
+                    <h5 class="card-title">Total Users</h5>
+                    <div class="d-flex align-items-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="bi bi-people"></i>
+                        </div>
+                        <div class="ps-3">
+                            <h6>@ViewData["TotalUsers"]</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- End Total Users Card -->
+        <!-- Total Candidates Card -->
+        <div class="col-lg-3 col-md-6">
+            <div class="card info-card">
+                <div class="card-body">
+                    <h5 class="card-title">Total Candidates</h5>
+                    <div class="d-flex align-items-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="bi bi-person-lines-fill"></i>
+                        </div>
+                        <div class="ps-3">
+                            <h6>@ViewData["TotalCandidates"]</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- End Total Candidates Card -->
+        <!-- Total Products Card -->
+        <div class="col-lg-3 col-md-6">
+            <div class="card info-card">
+                <div class="card-body">
+                    <h5 class="card-title">Total Products</h5>
+                    <div class="d-flex align-items-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="bi bi-box"></i>
+                        </div>
+                        <div class="ps-3">
+                            <h6>@ViewData["TotalProducts"]</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- End Total Products Card -->
+        <!-- Total Messages Card -->
+        <div class="col-lg-3 col-md-6">
+            <div class="card info-card">
+                <div class="card-body">
+                    <h5 class="card-title">Total Messages</h5>
+                    <div class="d-flex align-items-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="bi bi-envelope"></i>
+                        </div>
+                        <div class="ps-3">
+                            <h6>@ViewData["TotalMessages"]</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- End Total Messages Card -->
+        <!-- Total Quotes Card -->
+        <div class="col-lg-3 col-md-6">
+            <div class="card info-card">
+                <div class="card-body">
+                    <h5 class="card-title">Total Quotes</h5>
+                    <div class="d-flex align-items-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="bi bi-quote"></i>
+                        </div>
+                        <div class="ps-3">
+                            <h6>@ViewData["TotalQuotes"]</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- End Total Quotes Card -->
+
+    </div>
+</section>

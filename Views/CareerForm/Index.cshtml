@@ -1,0 +1,92 @@
+﻿@model Pharmacy.Models.CareerForm
+@using Microsoft.AspNetCore.Identity;
+@inject UserManager<IdentityUser> _userManager;
+@inject SignInManager<IdentityUser> _signInManager;
+
+@{
+    ViewData["Title"] = "Career Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container my-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h1 class="text-center my-4">Submit Your Application</h1>
+
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    @TempData["SuccessMessage"]
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            }
+
+            <form asp-action="Create" method="post" class="p-4 shadow rounded" style="background-color: #f9f9f9;">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="FullName" class="form-label">Full Name</label>
+                    <input asp-for="FullName" class="form-control" placeholder="Enter your full name" required/>
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                    <div class="invalid-feedback">
+                        Please enter your full name.
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Email" class="form-label">Email</label>
+                    <input asp-for="Email" type="email" class="form-control" placeholder="Enter your email address" required value="@_userManager.GetUserAsync(User).Result.Email" readonly/>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                    <div class="invalid-feedback">
+                        Please enter a valid email address.
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="PhoneNumber" class="form-label">Phone Number</label>
+                    <input asp-for="PhoneNumber" type="tel" class="form-control" placeholder="Enter your phone number" required />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    <div class="invalid-feedback">
+                        Please enter your phone number.
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Education" class="form-label">Education Level</label>
+                    <input asp-for="Education" class="form-control" placeholder="Enter your education level" required />
+                    <span asp-validation-for="Education" class="text-danger"></span>
+                    <div class="invalid-feedback">
+                        Please enter your education level.
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="DateOfApplication" class="form-label">Date Of Application</label>
+                    <input asp-for="DateOfApplication" type="date" class="form-control" required />
+                    <span asp-validation-for="DateOfApplication" class="text-danger"></span>
+                    <div class="invalid-feedback">
+                        Please select a date for your application.
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Submit Application</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Auto-dismiss alert after 4 seconds
+            var alert = document.querySelector('.alert');
+            if (alert) {
+                setTimeout(function () {
+                    $(alert).alert('close');
+                }, 4000);
+            }
+        });
+    </script>
+}

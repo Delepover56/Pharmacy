@@ -1,0 +1,128 @@
+﻿@model IEnumerable<Pharmacy.Models.Products>
+
+@{
+    ViewData["Title"] = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .card-hover {
+        transition: box-shadow 0.3s ease-in-out;
+    }
+
+        .card-hover:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+    .card-img-top {
+        object-fit: cover;
+        height: 200px;
+    }
+
+    .Page-Title {
+        text-align: center;
+        margin: 2rem 0;
+    }
+
+        .Page-Title h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #333;
+            border-bottom: 2px solid #007bff;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+    .modal-lg-custom {
+        max-width: 60%; /* Custom width for modal */
+        margin: auto; /* Center the modal horizontally */
+    }
+
+    #modalImage {
+        display: block;
+        margin: 0 auto; /* Center the image horizontally */
+        max-width: 100%;
+        height: auto;
+    }
+</style>
+
+<div class="Page-Title"><h1>Our Products</h1></div>
+
+<div class="site-section">
+    <div class="container">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-sm-6 col-lg-4 mb-4">
+                    <a href="#" class="text-dark text-decoration-none" data-toggle="modal" data-target="#productModal" data-id="@item.Id">
+                        <div class="card border-light shadow-sm h-100 bg-light card-hover">
+                            @if (!string.IsNullOrEmpty(item.ImagePath))
+                            {
+                                <img src="@item.ImagePath" class="card-img-top" alt="Product Image" style="max-width: 100%; height: auto;" />
+                            }
+                            <div class="card-body text-center p-4">
+                                <h5 class="card-title">@item.ProdName</h5>
+                                <p class="card-text">Price: $@item.Price</p>
+                                <p class="card-text">Stock: @item.Stock</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<!-- Modal Structure -->
+<div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-lg-custom" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="productModalLabel">Product Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Product details will be loaded here dynamically -->
+                <div id="modalContent">
+                    <img src="" id="modalImage" class="img-fluid" alt="Product Image" />
+                    <h3 id="modalTitle"></h3>
+                    <p id="modalDescription"></p>
+                    <p><strong>Price:</strong> $<span id="modalPrice"></span></p>
+                    <p><strong>Stock:</strong> <span id="modalStock"></span></p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $('#productModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var productId = button.data('id'); // Extract product ID from data-* attribute
+
+            // Make an AJAX call to fetch the product details based on the product ID
+            $.ajax({
+                url: '@Url.Action("GetProductDetails", "Store")',
+                type: 'GET',
+                data: { id: productId },
+                success: function (data) {
+                    $('#modalImage').attr('src', data.imagePath);
+                    $('#modalTitle').text(data.prodName);
+                    $('#modalDescription').text(data.description); // Fill in the description
+                    $('#modalPrice').text(data.price);
+                    $('#modalStock').text(data.stock);
+                },
+                error: function () {
+                    alert('Failed to load product details. Please try again.');
+                }
+            });
+        });
+    </script>
+}

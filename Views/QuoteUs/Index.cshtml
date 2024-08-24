@@ -1,0 +1,131 @@
+﻿@model Pharmacy.Models.Quotes
+
+@{
+    ViewData["Title"] = "Quote Us";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container my-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h1 class="text-center my-4">Quote Us</h1>
+
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    @TempData["SuccessMessage"]
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            }
+
+            <form asp-action="Index" method="post" class="p-4 shadow rounded" style="background-color: #f9f9f9;">
+                <div class="form-group mb-3">
+                    <label asp-for="Name" class="form-label">Name</label>
+                    <input asp-for="Name" class="form-control" placeholder="Enter your name" required />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                    <div class="invalid-feedback">
+                        Please enter your name.
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Email" class="form-label">Email</label>
+                    <input asp-for="Email" type="email" class="form-control" placeholder="Enter your email" required />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                    <div class="invalid-feedback">
+                        Please enter a valid email address.
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="PhoneNumber" class="form-label">Phone Number</label>
+                    <input asp-for="PhoneNumber" type="tel" class="form-control" placeholder="Enter your phone number" required />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    <div class="invalid-feedback">
+                        Please enter your phone number.
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Subject" class="form-label">Subject</label>
+                    <input asp-for="Subject" class="form-control" placeholder="Enter the subject" required />
+                    <span asp-validation-for="Subject" class="text-danger"></span>
+                    <div class="invalid-feedback">
+                        Please enter a subject.
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Message" class="form-label">Message</label>
+                    <textarea asp-for="Message" class="form-control" rows="4" placeholder="Enter your message" maxlength="500" required></textarea>
+                    <div id="charCount" class="mt-2">0/500</div>
+                    <span asp-validation-for="Message" class="text-danger"></span>
+                    <div class="invalid-feedback">
+                        Please enter your message.
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="PreferredContactMethod" class="form-label">Preferred Contact Method</label>
+                    <select asp-for="PreferredContactMethod" class="form-control" required>
+                        <option value="" disabled selected>Preferred Contact Method</option>
+                        <option value="Email">Email</option>
+                        <option value="Phone">Phone</option>
+                    </select>
+                    <span asp-validation-for="PreferredContactMethod" class="text-danger"></span>
+                    <div class="invalid-feedback">
+                        Please select your preferred contact method.
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Urgency" class="form-label">Urgency</label>
+                    <select asp-for="Urgency" class="form-control" required>
+                        <option value="" disabled selected>Select urgency level</option>
+                        @foreach (var urgency in Enum.GetValues(typeof(Pharmacy.Models.UrgencyLevel)))
+                        {
+                            <option value="@urgency">@urgency</option>
+                        }
+                    </select>
+                    <span asp-validation-for="Urgency" class="text-danger"></span>
+                    <div class="invalid-feedback">
+                        Please select an urgency level.
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Character counter logic
+            var messageInput = document.querySelector('textarea[name="Message"]');
+            var charCount = document.getElementById('charCount');
+            var maxLength = 500;
+
+            messageInput.addEventListener('input', function () {
+                var currentLength = messageInput.value.length;
+                charCount.textContent = `${currentLength}/${maxLength}`;
+
+                if (currentLength >= maxLength) {
+                    messageInput.value = messageInput.value.substring(0, maxLength); // Prevents typing more than max length
+                    charCount.textContent = `${maxLength}/${maxLength}`; // Update count to max length
+                }
+            });
+
+            // Auto-dismiss alert after 4 seconds
+            var alert = document.querySelector('.alert');
+            if (alert) {
+                setTimeout(function () {
+                    $(alert).alert('close');
+                }, 4000);
+            }
+        });
+    </script>
+}
